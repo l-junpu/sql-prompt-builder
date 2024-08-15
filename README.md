@@ -1,1 +1,1 @@
-# sql-prompt-builder
+# sql-Prompt-builder
