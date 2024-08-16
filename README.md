@@ -33,22 +33,22 @@ Data Limiting
 ```go
 // Import the library
 import (
-	"sql-prompt-builder/tools"
+    "sql-prompt-builder/tools"
 )
 
 func main() {
     // Create a SQL Prompt Builder
-	b := tools.CreatePromptBuilder()
+    b := tools.CreatePromptBuilder()
 
     // Construct Your SQL Query Programmatically
     query := b.Select("Column1").                                   // Select the column(s)
-		From("Table1").                                             // Specify the Table(s)
-		Join("Table1", "Table2", "Table1Column1", "Table2Column1"). // Specify additional Table(s)
-		Join("Table2", "Table3", "Table2Column1", "Table3Column1"). // Specify additional Table(s)
-		Where("age > %v", 30).Or("name = '%s'", "Jun Pu").          // Specify conditions
-		GroupBy("name").                                            // Group results
-		Limit(10).Offset(5).                                        // Limit results
-		Generate()                                                  // Generate a SQL Query as a string
+        From("Table1").                                             // Specify the Table(s)
+        Join("Table1", "Table2", "Table1Column1", "Table2Column1"). // Specify additional Table(s)
+        Join("Table2", "Table3", "Table2Column1", "Table3Column1"). // Specify additional Table(s)
+        Where("age > %v", 30).Or("name = '%s'", "Jun Pu").          // Specify conditions
+        GroupBy("name").                                            // Group results
+        Limit(10).Offset(5).                                        // Limit results
+        Generate()                                                  // Generate a SQL Query as a string
 
     // Display SQL Query
     fmt.Println(query)
