@@ -32,6 +32,13 @@ type PromptBuilder struct {
 	Prompt string
 }
 
+func CreatePromptBuilder() *PromptBuilder {
+	b := PromptBuilder{
+		Prompt: "",
+	}
+	return &b
+}
+
 func (b *PromptBuilder) Select(Columns ...string) QueryBuilder {
 	for i, col := range Columns {
 		if i == 0 {

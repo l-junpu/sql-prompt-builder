@@ -2,13 +2,11 @@ package main
 
 import (
 	"fmt"
-	"sql-Prompt-builder/tools"
+	"sql-prompt-builder/tools"
 )
 
 func main() {
-	b := tools.PromptBuilder{
-		Prompt: "",
-	}
+	b := tools.CreatePromptBuilder()
 
 	query := b.Select("Column1").
 		From("Table1").
