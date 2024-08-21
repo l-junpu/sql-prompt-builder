@@ -4,6 +4,7 @@ import "fmt"
 
 type DataRetrieval interface {
 	Select(Columns ...string) PromptBuilderInterface
+	SelectDistinct(Column string) PromptBuilderInterface
 	From(Table string) PromptBuilderInterface
 	InnerJoin(FirstTable string, SecondTable string, FirstCol string, SecondCol string) PromptBuilderInterface
 }
@@ -18,6 +19,11 @@ func (b *PromptBuilder) Select(Columns ...string) PromptBuilderInterface {
 	}
 	b.Prompt = fmt.Sprintf("%s\n", b.Prompt)
 
+	return b
+}
+
+func (b *PromptBuilder) SelectDistinct(Column string) PromptBuilderInterface {
+	b.Prompt = fmt.Sprintf("SELECT DISTINCT %s\n", Column)
 	return b
 }
 

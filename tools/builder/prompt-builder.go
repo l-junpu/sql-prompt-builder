@@ -42,31 +42,3 @@ func CreatePromptBuilder() *PromptBuilder {
 	}
 	return &b
 }
-
-/*
-	-> Filtering & Sorting
-	OrderBy
-	Not
-	In
-	Between
-	Like
-	Not In
-	Not Between
-	Is Null / No Null
-
-	-> Aggregation & Grouping
-	Groupby
-	Sum
-	Avg
-	Max
-	Min
-	Count
-	Having
-
-	-> Joining
-	Inner Join (D)
-	Left Join
-	Right Join
-	Full Outer Join
-	Subquery
-*/

@@ -10,6 +10,7 @@ type DataFilters interface {
 	And(Condition string, Comparison interface{}) PromptBuilderInterface
 	Or(Condition string, Comparison interface{}) PromptBuilderInterface
 
+	conditionalWrapBraces(Keyword string, Comparisons ...interface{}) PromptBuilderInterface
 	In(Comparisons ...interface{}) PromptBuilderInterface
 	NotIn(Comparisons ...interface{}) PromptBuilderInterface
 
@@ -46,7 +47,7 @@ func (b *PromptBuilder) Or(Condition string, Comparison interface{}) PromptBuild
 	return b
 }
 
-func (b *PromptBuilder) In(Comparisons ...interface{}) PromptBuilderInterface {
+func (b *PromptBuilder) conditionalWrapBraces(Keyword string, Comparisons ...interface{}) PromptBuilderInterface {
 	b.Prompt = strings.TrimSpace(b.Prompt)
 	if len(Comparisons) > 1 {
 		concat := "("
@@ -55,16 +56,20 @@ func (b *PromptBuilder) In(Comparisons ...interface{}) PromptBuilderInterface {
 		}
 		concat = strings.TrimSuffix(concat, string(concat[len(concat)-2:]))
 		concat += ")"
-		b.Prompt = fmt.Sprintf("%s IN %s\b", b.Prompt, concat)
+		b.Prompt = fmt.Sprintf("%s %s %s\b", b.Prompt, Keyword, concat)
 	} else {
-		b.Prompt = fmt.Sprintf("%s IN %s\n", b.Prompt, Comparisons)
+		b.Prompt = fmt.Sprintf("%s %s %s\n", b.Prompt, Keyword, Comparisons)
 	}
+	b.Prompt = fmt.Sprintf("%s\n", b.Prompt)
 	return b
 }
 
-func (b *PromptBuilder) NotIn(Comparisons ...interface{}) PromptBuilderInterface {
+func (b *PromptBuilder) In(Comparisons ...interface{}) PromptBuilderInterface {
+	return b.conditionalWrapBraces("IN", Comparisons...)
+}
 
-	return b
+func (b *PromptBuilder) NotIn(Comparisons ...interface{}) PromptBuilderInterface {
+	return b.conditionalWrapBraces("NOT IN", Comparisons...)
 }
 
 func (b *PromptBuilder) Like(Pattern string) PromptBuilderInterface {

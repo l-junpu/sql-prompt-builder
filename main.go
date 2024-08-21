@@ -24,7 +24,7 @@ func main() {
 		From("table_1").
 		InnerJoin("table_1", "table_2", "id", "id").
 		Where("%s", "department").In("engineering", "development").
-		GroupBy().
+		OrderBy("ASC", "Salary", "Department").
 		Max().
 		Generate()
 
